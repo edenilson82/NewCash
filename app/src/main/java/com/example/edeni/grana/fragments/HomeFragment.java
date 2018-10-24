@@ -29,8 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class HomeFragment extends Fragment
-        implements OperacaoAdapter.ListaOperacaoOnClickListener{
+public class HomeFragment extends Fragment{
 
     private static String TITULO = "Movimentos";
 
@@ -80,32 +79,19 @@ public class HomeFragment extends Fragment
         // preenche a lista na tela
         preecheOperacoes();
 
-        // Inflate the layout for this fragment
         return _view;
 
     }
 
     @Override
-    public void onClickCash(View view, int pos) {
-
-        // NAO E MAIS UTILIZADO
-        Intent intent = new Intent(getContext(),CadastroActivity.class);
-        Operacao operacao = operacoes.get(pos);
-        intent.putExtra("operacao", operacao);
-        startActivity(intent);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-        //isConectado();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //isConectado();
+
         preecheOperacoes();
     }
 
@@ -130,8 +116,7 @@ public class HomeFragment extends Fragment
 
         @Override
         protected List<Operacao> doInBackground(Void... voids) {
-            //Fora da main thread
-            //List<Operacao> operacoes = db.operacaoDao().listar();
+
             operacoes = db.operacaoDao().listar();
             return operacoes;
         }

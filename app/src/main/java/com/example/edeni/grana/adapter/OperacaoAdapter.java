@@ -30,14 +30,6 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.ViewHo
     AppDatabase db;
     private List<Operacao> listaOperacao;
     private Context context;
-    private ListaOperacaoOnClickListener listaOperacaoOnClickListener;
-
-    public OperacaoAdapter(Context context, List<Operacao> _listaOperacao, ListaOperacaoOnClickListener listaOperacaoOnClickListener) {
-        this.listaOperacao = _listaOperacao;
-        this.context = context;
-        this.listaOperacaoOnClickListener = listaOperacaoOnClickListener;
-
-    }
 
     public OperacaoAdapter(Context context, List<Operacao> _listaOperacao) {
         this.listaOperacao = _listaOperacao;
@@ -131,7 +123,4 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.ViewHo
         }
     }
 
-    public interface ListaOperacaoOnClickListener {
-        public void onClickCash(View view, int pos);
-    }
 }
