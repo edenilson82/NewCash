@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppTheme.NoActionBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B4EEB4"
+    android:label="@string/titulo_cadastro"
+    android:orientation="vertical"
+    tools:context=".CadastroActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarSalvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lbl_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="Categoria"
+        android:textSize="12sp"
+        android:visibility="visible" />
+
+    <Spinner
+        android:id="@+id/spinner_categoria"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp" />
+
+    <View
+        android:id="@+id/viewCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="15dp"
+        android:foreground="@android:color/darker_gray" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_descricao"
+            android:inputType="textCapWords|textCapSentences|textPersonName"
+            android:paddingLeft="5dp"
+            android:textAllCaps="true"
+            android:textSize="14sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_valor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:id="@+id/txtValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_valor"
+            android:inputType="number|numberDecimal"
+            android:paddingLeft="5dp"
+            android:textSize="14sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <View
+        android:id="@+id/separadorData"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp" />
+
+    <TextView
+        android:id="@+id/txtDataHidden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Data da operação"
+        android:paddingLeft="5dp"
+        android:textColor="#000"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/txtData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Selecione a data"
+            android:paddingLeft="5dp"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/viewData"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="7dp"
+            android:foreground="@android:color/darker_gray"
+            android:hint="Selecione a data" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <View
+        android:id="@+id/separadorOperacao"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/lbl_operacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="Operação"
+        android:textSize="12sp"
+        android:visibility="visible" />
+
+    <Spinner
+        android:id="@+id/spinnertipo"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp" />
+
+    <LinearLayout
+        android:id="@+id/linearBuscaMapa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lbl_endereco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="Endereço"
+            android:textSize="14sp" />
+
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="5" />
+
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativelayout_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

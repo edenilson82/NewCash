@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_currency_usd"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_saldo"
+        android:icon="@drawable/ic_cash_100"
+        android:title="Saldo" />
+    <!--
+    <item
+        android:id="@+id/nav_extrato"
+        android:icon="@drawable/ic_cash_multiple"
+        android:title="Extrato" />
+-->
+    <item
+        android:id="@+id/nav_moeda"
+        android:icon="@drawable/ic_outline_monetization_on_24px"
+        android:title="Cotação" />
+    <!--
+    <item
+        android:id="@+id/nav_config"
+        android:icon="@drawable/ic_cogs"
+        android:title="Configuração" />
+-->
+</menu>

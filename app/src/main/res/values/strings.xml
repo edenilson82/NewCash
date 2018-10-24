@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- TELAS -->
+
+    <!--  TELA DE CADASTRO    -->
+    <string name="label_categoria">Categoria</string>
+    <string name="label_descricao">Descrição</string>
+    <string name="label_valor">Valor</string>
+    <string name="label_data">Data</string>
+    <string name="txt_pesquisa_mapa">Dígite o endereço</string>
+
+    <!-- TELA DE SALDO -->
+    <string name="label_lancamentos_credito">Lançamentos de Créditos</string>
+    <string name="label_lancamentos_despesas">Lançamentos de Despesas</string>
+
+    <!-- TITULOS -->
+    <string name="app_name">See Cash</string>
+    <string name="title_movimento">Movimentos</string>
+    <string name="title_saldo">Saldo</string>
+    <string name="title_extrato">Extrato</string>
+    <string name="title_configuracao">Configuração</string>
+    <string name="title_cadastro">Cadastro</string>
+    <string name="title_editar">Editar</string>
+
+    <!-- MENU SANDWICH -->
+    <string name="menu_usuario">Cadastro de Usuários</string>
+    <string name="menu_categoria">Cadastro de Categorias</string>
+    <string name="menu_sair">Sair</string>
+
+    <!-- MENU CADASTRO -->
+    <string name="menu_salvar">Salvar</string>
+    <string name="menu_excluir">Excluir</string>
+
+
+    <!-- CARD VIEW-->
+    <string name="card_titulo_bitcoin">Bitcoin</string>
+    <string name="card_titulo_dolar">Dolar</string>
+    <string name="card_titulo_euro">Euro</string>
+
+    <!-- MENU TABS -->
+    <string name="tab_home">Movimentos</string>
+    <string name="tab_saldo">Saldo</string>
+    <string name="tab_extrato">Extrato</string>
+    <string name="tab_cotacao">Cotações</string>
+    <string name="tab_configuracao">Configuração</string>
+
+    <string name="title_activity_main2">See Cash</string>
+    <string name="titulo_cadastro">Cadastro</string>
+    <string name="search">Pesquisar</string>
+    <string name="title_activity_login">Login</string>
+    <string name="txt_criar_conta">Criar Conta</string>
+    <string name="txt_recuperar_senha">Recuperar Senha</string>
+
+
+    <!-- Strings related to login -->
+    <string name="username">Usuário</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="error_invalid_username">Nome de usuário muuito curto</string>
+    <string name="error_invalid_password">Senha muito curta</string>
+    <string name="error_incorrect_password">Senha incorreta</string>
+    <string name="error_field_required">Campo obrigatório</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btnExcluir">Exclui</string>
+</resources>

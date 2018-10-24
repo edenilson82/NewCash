@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:background="#B4EEB4"
+    android:elevation="8dp"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <RelativeLayout
+        android:layout_width="365dp"
+        android:layout_height="match_parent"
+        android:background="#B4EEB4"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/linearCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="#B4EEB4"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtCategoria"
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="16dp"
+                android:text="categoria"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtData"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="45dp"
+                android:text="Data"
+                android:textAlignment="viewEnd"
+                android:textColor="#000"
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearDescricao"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearCategoria"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="18dp"
+            android:background="#B4EEB4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtDescricao"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="descrição"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="17dp" />
+
+            <TextView
+                android:id="@+id/txtTipo"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="operação"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="38dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearImagem"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearCategoria"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="false"
+            android:layout_marginRight="35dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_right" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearDescricao"
+            android:layout_alignParentStart="false"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtValor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="35dp"
+                android:paddingRight="15dp"
+                android:text="valor"
+                android:textAlignment="textEnd"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:layout_editor_absoluteY="16dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

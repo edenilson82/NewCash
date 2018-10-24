@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.MoedasFragment">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:tooltipText="Atualizando...">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/cardViewDolar"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_margin="2dp"
+            card_view:cardBackgroundColor="#8FBC8F"
+            card_view:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:orientation="vertical"
+            android:background="@drawable/layout_shadow_cardview">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="70dp"
+                android:gravity="center"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/progress_bar"
+                android:paddingLeft="16dp"
+                android:text="Carregando..."
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000"
+                android:textSize="14sp"
+                android:visibility="visible" />
+
+            <TableRow
+                android:id="@+id/dolar_linha_um"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/labelTituloDolar"
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/card_titulo_dolar"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtDataDolar"
+                    android:layout_width="89dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingRight="5dp"
+                    android:text="data"
+                    android:textAlignment="textEnd"
+                    android:textSize="10sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/dolar_linha_dois"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/dolar_linha_um"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/labelDolarValorCompra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Valor de Compra"
+                    android:textAlignment="center"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/labelDolarValorVenda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Valor de Venda"
+                    android:textAlignment="center"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/labelDolarVariacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingRight="5dp"
+                    android:text="Variação"
+                    android:textAlignment="center"
+                    android:textSize="10sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/dolar_linha_tres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/dolar_linha_dois"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/txtDolarValorCompra"
+                    android:layout_width="58dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txtDolarValorVenda"
+                    android:layout_width="59dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="#000"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txtDolarVariacao"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000"
+                    android:gravity="center_vertical"
+                    android:paddingRight="5dp"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/dolar_linha_quatro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/dolar_linha_tres"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/labelDolarValorMaximo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Valor Máximo"
+                    android:textAlignment="center"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/labelDolarValorMinimo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="Valor Minímo"
+                    android:textAlignment="center"
+                    android:textSize="10sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/dolar_linha_cinco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/dolar_linha_quatro"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/txtDolarValorMaximo"
+                    android:layout_width="58dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txtDolarValorMinimo"
+                    android:layout_width="59dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+            </TableRow>
+
+        </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/cardViewEuro"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_margin="2dp"
+            card_view:cardBackgroundColor="#8FBC8F"
+            card_view:cardCornerRadius="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="134dp"
+                android:orientation="vertical"
+                android:background="@drawable/layout_shadow_cardview">
+
+                <TableRow
+                    android:id="@+id/euro_linha_um"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/labelTituloEuro"
+                        android:layout_width="203dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/card_titulo_euro"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txtDataEuro"
+                        android:layout_width="89dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingRight="5dp"
+                        android:text="data"
+                        android:textAlignment="textEnd"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/euro_linha_dois"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/euro_linha_um"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/labelEuroValorCompra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Valor de Compra"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/labelEuroValorVenda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Valor de Venda"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/labelEuroVariacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:text="Variação"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/euro_linha_tres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/euro_linha_dois"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txtEuroValorCompra"
+                        android:layout_width="58dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtEuroValorVenda"
+                        android:layout_width="59dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtEuroVariacao"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/euro_linha_quatro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/euro_linha_tres"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/labelEuroValorMaximo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Valor Máximo"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/labelEuroValorMinimo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Valor Minímo"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/euro_linha_cinco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/euro_linha_quatro"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txtEuroValorMaximo"
+                        android:layout_width="58dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtEuroValorMinimo"
+                        android:layout_width="59dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                </TableRow>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/cardViewBitcoin"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_margin="2dp"
+            card_view:cardBackgroundColor="#8FBC8F"
+            card_view:cardCornerRadius="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="134dp"
+                android:orientation="vertical"
+                android:background="@drawable/layout_shadow_cardview">
+
+                <TableRow
+                    android:id="@+id/linha_um"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/labelTituloBitcoin"
+                        android:layout_width="203dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="@string/card_titulo_bitcoin"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txtDataBitcoin"
+                        android:layout_width="89dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingRight="5dp"
+                        android:text="data"
+                        android:textAlignment="textEnd"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/linha_dois"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/linha_um"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/labelMaiorPreco"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Maior valor"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/labelMenorPreco"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Menor valor"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/labelVolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:text="Volume"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/linha_tres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/linha_dois"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txtMaiorPreco"
+                        android:layout_width="58dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtMenorPreco"
+                        android:layout_width="59dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtVolume"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/linha_quatro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/linha_tres"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/labelMaiorPrecoCompra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Maior preço de Compra"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/labelMenorPrecoVenda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Menor preço de Venda"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/labelValorUltimaNegociacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:text="Última negociação"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/linha_cinco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/linha_quatro"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txtMaiorPrecoCompra"
+                        android:layout_width="37dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtMenorPrecoVenda"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtValorUltimaNegociacao"
+                        android:layout_width="16dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#000"
+                        android:paddingRight="5dp"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                </TableRow>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </TableLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+</FrameLayout>
