@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/lblMens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:text="@string/titulo_janela_categoria"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/txt_input_layout_cad_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radio_condicao_alerta"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:paddingLeft="10dp">
+
+        <EditText
+            android:id="@+id/txtNomeNovaCategoria"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblMens"
+            android:layout_alignLeft="@+id/lblMens"
+            android:layout_marginRight="10dp"
+            android:hint="@string/placeholder_nova_categoria"
+            android:inputType="text"
+            android:textColorLink="@color/btnLogin" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_input_layout_cad_categoria"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingTop="4dp">
+
+        <Button
+            android:id="@+id/btn_Confirmar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/btnLogin"
+            android:text="Salvar"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btn_Cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:text="Cancelar"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</RelativeLayout>

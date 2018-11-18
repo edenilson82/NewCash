@@ -14,18 +14,22 @@ import java.util.Dictionary;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-
 @Entity(tableName = "operacao",
         foreignKeys = {
-                @ForeignKey(entity = Categoria.class,
+                @ForeignKey(
+                        entity = Categoria.class,
                         parentColumns = "id",
-                        childColumns = "id_categoria"),
-                @ForeignKey(entity = Endereco.class,
+                        childColumns = "id_categoria",
+                        onDelete = CASCADE
+                ),
+                @ForeignKey(
+                        entity = Endereco.class,
                         parentColumns = "id",
-                        childColumns = "id_endereco"),
-
-        })
-
+                        childColumns = "id_endereco",
+                        onDelete = CASCADE
+                )
+        }
+)
 public class Operacao implements Serializable {
 
     @ColumnInfo(name = "id")
@@ -41,7 +45,7 @@ public class Operacao implements Serializable {
     private long Categoria_Id;
 
     @ColumnInfo(name = "id_endereco")
-    private long Endereco_Id;
+    private Integer Endereco_Id;
 
     public Operacao(){}
 
@@ -53,7 +57,7 @@ public class Operacao implements Serializable {
         Categoria_Id = categoria_Id;
     }
 
-    public Operacao(String descricao, String tipo, String data, Double valor, long categoria_Id, long endereco_Id) {
+    public Operacao(String descricao, String tipo, String data, Double valor, long categoria_Id, Integer endereco_Id) {
         Descricao = descricao;
         Tipo = tipo;
         Data = data;
@@ -110,11 +114,11 @@ public class Operacao implements Serializable {
         Categoria_Id = categoria_Id;
     }
 
-    public long getEndereco_Id() {
+    public Integer getEndereco_Id() {
         return Endereco_Id;
     }
 
-    public void setEndereco_Id(long endereco_Id) {
+    public void setEndereco_Id(Integer endereco_Id) {
         Endereco_Id = endereco_Id;
     }
 }

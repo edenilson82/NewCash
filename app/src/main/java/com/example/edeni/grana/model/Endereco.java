@@ -13,11 +13,21 @@ public class Endereco {
 
     private String Rua;
 
+    private String Bairro;
+
+    private String Cidade;
+
+    private String NumeroDaResidencia;
+
+    private String Estado;
+
     private String EnderecoCompleto;
 
     private String Latitude;
 
     private String Longitude;
+
+    private String CEP;
 
     public Endereco(){}
 
@@ -66,5 +76,45 @@ public class Endereco {
 
     public void setRua(String rua) {
         this.Rua = rua;
+    }
+
+    public String getBairro() {
+        return Bairro;
+    }
+
+    public void setBairro(String bairro) {
+        Bairro = bairro;
+    }
+
+    public String getCidade() {
+        return Cidade;
+    }
+
+    public void setCidade(String cidade) {
+        Cidade = cidade;
+    }
+
+    public String getNumeroDaResidencia() {
+        return NumeroDaResidencia;
+    }
+
+    public void setNumeroDaResidencia(String numeroDaResidencia) {
+        NumeroDaResidencia = numeroDaResidencia;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String estado) {
+        Estado = estado;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
     }
 }

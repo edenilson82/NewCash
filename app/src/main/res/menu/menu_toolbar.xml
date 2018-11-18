@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:title="Cadastros"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_twotone_menu_24px" >
+
+        <menu>
+
+            <item
+                android:id="@+id/alertas"
+                android:title="@string/menu_notificacao"
+                android:icon="@drawable/ic_bell_ring"
+                app:showAsAction="withText" />
+
+            <item
+                android:id="@+id/cadastro_usuario"
+                android:title="@string/menu_usuario"
+                android:icon="@drawable/ic_account_multiple_plus"
+                app:showAsAction="withText" />
+
+            <item
+                android:id="@+id/cadastro_categoria"
+                android:icon="@drawable/ic_shape_plus"
+                android:title="@string/menu_categoria"
+                app:showAsAction="withText" />
+
+            <item
+                android:id="@+id/sair"
+                android:title="@string/menu_sair"
+                android:icon="@drawable/ic_close_circle_outline"
+                app:showAsAction="withText" />
+
+        </menu>
+    </item>
+
+</menu>

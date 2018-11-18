@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.edeni.grana.App;
 import com.example.edeni.grana.CadastroActivity;
@@ -38,8 +39,6 @@ public class HomeFragment extends Fragment{
     FloatingActionButton floatingActionButton;
 
     RecyclerView recyclerView;
-
-    OperacaoAdapter operacaoAdapter;
 
     private RecyclerView.Adapter mAdapter;
 
@@ -73,7 +72,7 @@ public class HomeFragment extends Fragment{
         });
 
         recyclerView = (RecyclerView) _view.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // preenche a lista na tela
@@ -128,7 +127,7 @@ public class HomeFragment extends Fragment{
                 mAdapter = new OperacaoAdapter(getContext(), operacoes);
                 recyclerView.setAdapter(mAdapter);
             }catch (Exception ex){
-
+                Toast.makeText(App.getContext(), "Não foi possível carregar a lista, " + ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }

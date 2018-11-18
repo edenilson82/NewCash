@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "928256732353",
+    "firebase_url": "https://seecash-95564.firebaseio.com",
+    "project_id": "seecash-95564",
+    "storage_bucket": "seecash-95564.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928256732353:android:1b9ce36f02f0e435",
+        "android_client_info": {
+          "package_name": "com.example.edeni.grana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928256732353-u119dre3c6b9rt5312bmpooqd96pgm0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgmigxO5lE6OnuIOnMW19nBKIEuPcznfg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

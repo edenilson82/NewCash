@@ -13,6 +13,11 @@
     <string name="label_lancamentos_credito">Lançamentos de Créditos</string>
     <string name="label_lancamentos_despesas">Lançamentos de Despesas</string>
 
+    <!-- TELA DE CATEGORIA -->
+    <string name="titulo_janela_categoria">Cadastro de Categoria</string>
+    <string name="placeholder_nova_categoria">Nova Categoria</string>
+
+
     <!-- TITULOS -->
     <string name="app_name">See Cash</string>
     <string name="title_movimento">Movimentos</string>
@@ -21,8 +26,10 @@
     <string name="title_configuracao">Configuração</string>
     <string name="title_cadastro">Cadastro</string>
     <string name="title_editar">Editar</string>
+    <string name="title_alertas">Alertas</string>
 
-    <!-- MENU SANDWICH -->
+    <!-- MENU TOOLBAR -->
+    <string name="menu_notificacao">Alertas</string>
     <string name="menu_usuario">Cadastro de Usuários</string>
     <string name="menu_categoria">Cadastro de Categorias</string>
     <string name="menu_sair">Sair</string>
@@ -31,6 +38,19 @@
     <string name="menu_salvar">Salvar</string>
     <string name="menu_excluir">Excluir</string>
 
+    <!-- MENSAGENS -->
+    <string name="msg_excluir_operacao">Deseja excluir o registro</string>
+
+    <!-- RADIO BUTTONS -->
+    <string name="msg_texto_alerta">Me notifique quando a condição for:</string>
+    <string name="label_valor_alerta">Valor</string>
+    <string name="placeholder_valor_alerta">Valor da condição</string>
+    <string name="tipo_credito">Crédito</string>
+    <string name="tipo_despesa">Despesa</string>
+    <string name="condicao_saldo">Saldo</string>
+    <string name="condicao_maior">Maior que</string>
+    <string name="condicao_menor">Menor que</string>
+    <string name="texto_notificacao">Edenilson</string>
 
     <!-- CARD VIEW-->
     <string name="card_titulo_bitcoin">Bitcoin</string>

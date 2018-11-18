@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:elevation="8dp"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <RelativeLayout
+        android:layout_width="365dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical">
+
+
+        <LinearLayout
+            android:id="@+id/linearCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/borda_circulo"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_bell_ring_imageview" />
+
+            <TextView
+                android:id="@+id/txtTipo"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="5dp"
+                android:text="Tipo"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtCondicao"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Condição"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/txtValor"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Valor"
+                android:textAlignment="viewEnd"
+                android:textColor="#000"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

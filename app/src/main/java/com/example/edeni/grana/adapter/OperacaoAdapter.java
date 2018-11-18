@@ -70,7 +70,9 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.ViewHo
 
         long id = listaOperacao.get(position).getCategoria_Id();
         Categoria categoria = db.categoriaDao().procurarPorId(id);
-        holder.categoria.setText(categoria.getNomeCategoria());
+
+        String capitalizeCategoria = (categoria.getNomeCategoria().substring(0, 1).toUpperCase() + (categoria.getNomeCategoria().substring(1)));
+        holder.categoria.setText(capitalizeCategoria);
 
         // Crio o estilo da Lista - Cores, tamanho
         SetStyleViewHolder(holder);

@@ -3,15 +3,19 @@
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="btnExcluir">#FF0000</color>
+    <color name="btnExcluir">#ff0000</color>
     <color name="btnSalvar">#3f51b5</color>
-    <color name="btnLogin">#2E8B57</color>
+    <color name="btnLogin">#2e8b57</color>
 
     <color name="spinner_background">#2E8B57</color>
     <color name="fundoConteudo">#B4EEB4</color>
     <color name="fundoSplash">#B4EEB4</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorWhiteTransparent">#ffffff00</color>
+    <color name="mensagem">#000</color>
 
+    <!--  CIRCULO DO MAPA -->
+    <color name="fundo_circulo">#2271cce7</color>
+    <color name="borda_circulo">#f8ea31</color>
 
 </resources>

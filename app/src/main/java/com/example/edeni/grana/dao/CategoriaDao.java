@@ -20,12 +20,19 @@ public interface CategoriaDao{
     @Delete
     public void delete(Categoria categoria);
 
+    @Query("DELETE FROM Categoria")
+    public void deleteAll();
+
     @Update
     public void alterar(Categoria categoria);
+
 
     @Query("SELECT * FROM Categoria")
     public List<Categoria> listar();
 
     @Query("SELECT * FROM Categoria WHERE id=:id")
     public Categoria procurarPorId(long id);
+
+    @Query("SELECT * FROM Categoria WHERE nome=:nome")
+    public Categoria procurarPorNome(String nome);
 }
