@@ -26,8 +26,8 @@ public interface AlertaDao {
     @Update
     public void alterar(Alerta alerta);
 
-    @Query("SELECT * FROM Alerta")
-    public List<Alerta> listar();
+    @Query("SELECT * FROM Alerta WHERE id_usuario=:id_usuario")
+    public List<Alerta> listar(Integer id_usuario);
 
     @Query("SELECT * FROM Alerta WHERE id=:id")
     public Alerta procurarPorId(long id);

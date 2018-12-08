@@ -137,6 +137,14 @@
             android:text="Sair"
             android:visibility="gone" />
 
+        <Button
+            android:id="@+id/btn_excluir_alerta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/btnExcluir"
+            android:text="Excluir" />
+
 
     </LinearLayout>
 

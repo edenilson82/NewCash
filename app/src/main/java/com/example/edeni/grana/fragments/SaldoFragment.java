@@ -1,7 +1,9 @@
 package com.example.edeni.grana.fragments;
 
+import com.example.edeni.grana.MainActivity;
 import com.example.edeni.grana.R;
 
+import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.edeni.grana.model.Operacao;
+import com.example.edeni.grana.model.Usuario;
 import com.example.edeni.grana.room.AppDatabase;
 
 import java.text.NumberFormat;
@@ -26,6 +29,9 @@ public class SaldoFragment extends Fragment {
     private static String TITULO = "Saldo";
 
     private AppDatabase db;
+
+    Usuario usuario;
+
     NumberFormat numberFormat;
 
     TextView txtTotalCredito;
@@ -50,7 +56,16 @@ public class SaldoFragment extends Fragment {
 
         db = AppDatabase.getInstance(getActivity());
 
-        operacoes = db.operacaoDao().listar();
+        Activity main = (MainActivity)this.getActivity();
+        usuario = ((MainActivity) main).getUsuarioLogado();
+
+        int id_usuario;
+        if(usuario !=  null){
+             id_usuario = usuario.getID().intValue();
+            operacoes = db.operacaoDao().listar(id_usuario);
+        }else{
+            operacoes = null;
+        }
         numberFormat = NumberFormat.getCurrencyInstance();
 
         txtTotalCredito = (TextView) _view.findViewById(R.id.txtTotalCredito);
@@ -74,25 +89,33 @@ public class SaldoFragment extends Fragment {
         Double somaDespesa = 0.0;
         Double somaTotal = 0.0;
 
-        for (Operacao operacao: operacoes) {
+        if(operacoes == null){
+            txtTotalDespesa.setText(numberFormat.format(somaDespesa.doubleValue()));
+            txtTotalCredito.setText(numberFormat.format(somaCredito.doubleValue()));
+            txtSaldo.setText(numberFormat.format(somaTotal.doubleValue()));
+        }else{
 
-            String tipoOperacao = operacao.getTipo();
+            for (Operacao operacao: operacoes) {
 
-        if("Crédito".equals(tipoOperacao) || "crédito".equals(tipoOperacao)){
-                somaCredito += operacao.getValor();
-            }else{
-                somaDespesa += operacao.getValor();
+                String tipoOperacao = operacao.getTipo();
+
+                if("Crédito".equals(tipoOperacao) || "crédito".equals(tipoOperacao)){
+                    somaCredito += operacao.getValor();
+                }else{
+                    somaDespesa += operacao.getValor();
+                }
+
+                somaTotal = (somaCredito - somaDespesa);
             }
 
-            somaTotal = (somaCredito - somaDespesa);
+            txtTotalDespesa.setText(numberFormat.format(somaDespesa.doubleValue()));
+            txtTotalCredito.setText(numberFormat.format(somaCredito.doubleValue()));
+            txtSaldo.setText(numberFormat.format(somaTotal.doubleValue()));
+
+            if(somaTotal.doubleValue() < 0)
+                txtSaldo.setTextColor(Color.RED);
+
         }
-
-        txtTotalDespesa.setText(numberFormat.format(somaDespesa.doubleValue()));
-        txtTotalCredito.setText(numberFormat.format(somaCredito.doubleValue()));
-        txtSaldo.setText(numberFormat.format(somaTotal.doubleValue()));
-
-        if(somaTotal.doubleValue() < 0)
-            txtSaldo.setTextColor(Color.RED);
     }
 
 }

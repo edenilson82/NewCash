@@ -1,6 +1,30 @@
 <resources>
+    <!-- FACEBOOK -->
+    <string name="facebook_app_id">284051375458273</string> <string name="fb_login_protocol_scheme">fb284051375458273</string>
+
 
     <!-- TELAS -->
+
+    <!-- TELA DE LOGIN -->
+    <string name="label_usuario">Usuário</string>
+    <string name="label_senha">Senha</string>
+    <string name="placeholder_usuario">Digíte seu usuário</string>
+    <string name="placeholder_senha">Digíte sua senha</string>
+    <string name="btn_logar">Logar</string>
+    <string name="btn_logar_google">Google</string>
+    <string name="btn_logar_facebook">Facebook</string>
+    <string name="btn_abrir_cadastro_usuario">Efetuar cadastro</string>
+
+    <!--  TELA DE USUARIO    -->
+    <string name="label_nome_usuario">Nome</string>
+    <string name="label_user_name">Login</string>
+    <string name="label_email_usuario">E-mail</string>
+    <string name="label_senha_usuario">Senha</string>
+    <string name="placeholder_nome_usuario">Digíte seu nome</string>
+    <string name="placeholder_user_name">Login deve ser no mínimo de 3 letras</string>
+    <string name="placeholder_email_usuario">Digíte seu e-mail</string>
+    <string name="placeholder_senha_usuario">Senha mínima de 3 letras e/ou números</string>
+    <string name="texto_botao_salvar_usuario">Salvar Usuário</string>
 
     <!--  TELA DE CADASTRO    -->
     <string name="label_categoria">Categoria</string>
@@ -27,6 +51,7 @@
     <string name="title_cadastro">Cadastro</string>
     <string name="title_editar">Editar</string>
     <string name="title_alertas">Alertas</string>
+    <string name="title_cadastro_usuario">Cadastro de Usuário</string>
 
     <!-- MENU TOOLBAR -->
     <string name="menu_notificacao">Alertas</string>
@@ -40,6 +65,7 @@
 
     <!-- MENSAGENS -->
     <string name="msg_excluir_operacao">Deseja excluir o registro</string>
+    <string name="msg_notificacao">Notificação</string>
 
     <!-- RADIO BUTTONS -->
     <string name="msg_texto_alerta">Me notifique quando a condição for:</string>
@@ -50,7 +76,7 @@
     <string name="condicao_saldo">Saldo</string>
     <string name="condicao_maior">Maior que</string>
     <string name="condicao_menor">Menor que</string>
-    <string name="texto_notificacao">Edenilson</string>
+
 
     <!-- CARD VIEW-->
     <string name="card_titulo_bitcoin">Bitcoin</string>

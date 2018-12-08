@@ -25,6 +25,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/txt_usuario_logado"
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textColor="#000"
+        android:visibility="gone"
+        android:textSize="14sp" />
+
+    <TextView
         android:id="@+id/lbl_categoria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

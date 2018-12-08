@@ -63,6 +63,8 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.ViewHo
         db = AppDatabase.getInstance(context);
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
 
+        Integer id_usuario = listaOperacao.get(position).getUsuario_id();
+        holder.id_usuario.setText(String.valueOf(id_usuario));
         holder.valor.setText(numberFormat.format(listaOperacao.get(position).getValor()));
         holder.descricao.setText(listaOperacao.get(position).getDescricao());
         holder.data.setText(listaOperacao.get(position).getData());
@@ -81,11 +83,19 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return listaOperacao.size();
+
+        if(listaOperacao == null){
+            return 0;
+        }else{
+            return listaOperacao.size();
+        }
     }
 
     @Override
+
     public void onFondoClicked(int position) {
+
+        // manda para a tela CadastroActivity
         Intent intent = new Intent(context, CadastroActivity.class);
         intent.putExtra("operacao", listaOperacao.get(position));
         context.startActivity(intent);
@@ -103,6 +113,7 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.ViewHo
         public TextView tipo;
         public TextView valor;
         public TextView categoria;
+        public TextView id_usuario;
 
         public ViewHolder(View view, final OnOperacoesListener onOperacoesListener) {
             super(view);
@@ -111,6 +122,7 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.ViewHo
             this.tipo = view.findViewById(R.id.txtTipo);
             this.valor = view.findViewById(R.id.txtValor);
             this.categoria = view.findViewById(R.id.txtCategoria);
+            this.id_usuario = view.findViewById(R.id.txt_id_usuario_logado);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

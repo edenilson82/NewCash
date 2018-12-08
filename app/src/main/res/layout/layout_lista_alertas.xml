@@ -7,21 +7,20 @@
     android:layout_marginTop="2dp"
     android:elevation="8dp"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
+    android:paddingLeft="10dp"
     android:paddingRight="16dp">
 
     <RelativeLayout
         android:layout_width="365dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
         android:gravity="center_vertical">
-
 
         <LinearLayout
             android:id="@+id/linearCategoria"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -40,9 +39,9 @@
 
             <TextView
                 android:id="@+id/txtTipo"
-                android:layout_width="70dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="5dp"
                 android:text="Tipo"
@@ -51,8 +50,8 @@
 
             <TextView
                 android:id="@+id/txtCondicao"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="7dp"
                 android:text="Condição"
                 android:textAlignment="center"

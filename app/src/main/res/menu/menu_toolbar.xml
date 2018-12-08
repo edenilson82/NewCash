@@ -16,12 +16,13 @@
                 android:title="@string/menu_notificacao"
                 android:icon="@drawable/ic_bell_ring"
                 app:showAsAction="withText" />
-
+<!--
             <item
                 android:id="@+id/cadastro_usuario"
                 android:title="@string/menu_usuario"
                 android:icon="@drawable/ic_account_multiple_plus"
                 app:showAsAction="withText" />
+            -->
 
             <item
                 android:id="@+id/cadastro_categoria"

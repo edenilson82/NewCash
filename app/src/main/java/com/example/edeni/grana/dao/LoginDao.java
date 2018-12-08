@@ -32,6 +32,9 @@ public interface LoginDao {
     @Query("SELECT * FROM Usuario WHERE id=:id")
     public Usuario procurarPorId(long id);
 
-    @Query("SELECT * FROM Usuario WHERE username =:userName AND senha =:senha")
-    public Usuario procurarPorUserName(String userName, String senha);
+    //@Query("SELECT * FROM Usuario WHERE username =:userName AND senha =:senha")
+    //public Usuario procurarPorUserName(String userName, String senha);
+
+    @Query("SELECT * FROM Usuario WHERE email =:email AND senha =:senha")
+    public Usuario procurarPorEmailSenha(String email, String senha);
 }

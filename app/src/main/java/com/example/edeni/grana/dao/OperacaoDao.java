@@ -25,8 +25,8 @@ public interface OperacaoDao {
     @Update
     public void alterar(Operacao operacao);
 
-    @Query("SELECT * FROM operacao")
-    public List<Operacao> listar();
+    @Query("SELECT * FROM operacao WHERE id_usuario=:id_usuario")
+    public List<Operacao> listar(int id_usuario);
 
     @Query("SELECT * FROM operacao WHERE id=:id")
     public Operacao procurarPorId(int id);

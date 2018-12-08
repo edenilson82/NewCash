@@ -1,6 +1,7 @@
 package com.example.edeni.grana.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -18,9 +19,11 @@ import android.widget.Toast;
 
 import com.example.edeni.grana.App;
 import com.example.edeni.grana.CadastroActivity;
+import com.example.edeni.grana.MainActivity;
 import com.example.edeni.grana.R;
 import com.example.edeni.grana.adapter.OperacaoAdapter;
 import com.example.edeni.grana.model.Operacao;
+import com.example.edeni.grana.model.Usuario;
 import com.example.edeni.grana.receiver.ReceiverInternet;
 import com.example.edeni.grana.room.AppDatabase;
 import com.example.edeni.grana.services.ServiceAccessInternet;
@@ -44,6 +47,8 @@ public class HomeFragment extends Fragment{
 
     List<Operacao> operacoes;
 
+    Usuario usuario;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -64,10 +69,13 @@ public class HomeFragment extends Fragment{
 
         floatingActionButton = (FloatingActionButton) _view.findViewById(R.id.btnFab);
 
+        Activity main = (MainActivity)this.getActivity();
+        usuario = ((MainActivity) main).getUsuarioLogado();
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                abrirCadastroOperacao();
+                abrirCadastroOperacao(usuario);
             }
         });
 
@@ -100,10 +108,11 @@ public class HomeFragment extends Fragment{
         super.onDestroy();
     }
 
-    public void abrirCadastroOperacao(){
+    public void abrirCadastroOperacao(Usuario usuario){
 
         // CHAMADA IMPLICITAMENTE
         Intent intent = new Intent("android.intent.action.CadastroActivity");
+        intent.putExtra("usuario",usuario);
         startActivity(intent);
     }
 
@@ -116,8 +125,15 @@ public class HomeFragment extends Fragment{
         @Override
         protected List<Operacao> doInBackground(Void... voids) {
 
-            operacoes = db.operacaoDao().listar();
-            return operacoes;
+            try{
+                Integer id_usuario = usuario.getID().intValue();
+                operacoes = db.operacaoDao().listar(id_usuario);
+                return operacoes;
+            }catch (Exception ex){
+                ex.printStackTrace();
+                return null;
+            }
+
         }
 
         @Override

@@ -12,6 +12,7 @@ import com.example.edeni.grana.dao.EnderecoDao;
 import com.example.edeni.grana.dao.LoginDao;
 import com.example.edeni.grana.dao.OperacaoDao;
 import com.example.edeni.grana.dao.PagamentoDao;
+import com.example.edeni.grana.dao.UsuarioDao;
 import com.example.edeni.grana.model.Alerta;
 import com.example.edeni.grana.model.Categoria;
 import com.example.edeni.grana.model.Endereco;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Database(entities = {Categoria.class,Operacao.class,Usuario.class,Pagamento.class, Endereco.class, Alerta.class}, version = 8)
+@Database(entities = {Categoria.class,Operacao.class,Usuario.class,Pagamento.class, Endereco.class, Alerta.class}, version = 17)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase appDatabase;
@@ -31,7 +32,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoriaDao categoriaDao();
     public abstract OperacaoDao operacaoDao();
     public abstract LoginDao loginDao();
-    //public abstract UsuarioDao usuarioDao();
+    public abstract UsuarioDao usuarioDao();
     public abstract PagamentoDao pagamentoDao();
     public abstract EnderecoDao enderecoDao();
     public abstract AlertaDao alertaDao();

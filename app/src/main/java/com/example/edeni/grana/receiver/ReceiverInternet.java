@@ -44,7 +44,7 @@ public class ReceiverInternet extends BroadcastReceiver {
         public boolean isInternetConectado() {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            return networkInfo != null && networkInfo.isConnected();
+            return networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable();
         }
 
     }

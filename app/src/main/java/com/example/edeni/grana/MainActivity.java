@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,9 +27,16 @@ import com.example.edeni.grana.fragments.ExtratoFragment;
 import com.example.edeni.grana.fragments.HomeFragment;
 import com.example.edeni.grana.fragments.MoedasFragment;
 import com.example.edeni.grana.fragments.SaldoFragment;
+import com.example.edeni.grana.model.Alerta;
 import com.example.edeni.grana.model.Categoria;
+import com.example.edeni.grana.model.Usuario;
 import com.example.edeni.grana.receiver.ReceiverInternet;
 import com.example.edeni.grana.room.AppDatabase;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthSettings;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -47,16 +55,11 @@ public class MainActivity extends AppCompatActivity{
     ReceiverInternet receiverInternet;
     View parentLayout;
 
-    // CADASTRO DE ALERTAS
+    Usuario usuario;
+    String userName;
+    String pass;
 
-    boolean isRadioCondicaoAlertaChecked;
-    boolean isRadioTipoDeAlertChecked;
-    String txtDescricaoAlerta;
-    EditText valorAlerta;
-
-
-    // FECHA
-
+    Alerta alerta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,22 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // criado somente para poder utilizar o Snackbar
+        // aqui carrega o objeto Usuario que vem do CadastroDeUsuarioActivity
+        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+
+        if(usuario == null){
+            // aqui carrega o objeto Usuario que vem do LoginActivity
+            usuario = (Usuario) getIntent().getSerializableExtra("login");
+        }
+
+        // aqui recebo o alerta quando clico na notificação.
+        alerta = (Alerta) getIntent().getSerializableExtra("alerta");
+
+        if(alerta != null && usuario == null){
+            usuario = db.usuarioDao().procurarPorId(alerta.getId_usuario());
+        }
+
+                // criado somente para poder utilizar o Snackbar
         parentLayout = findViewById(android.R.id.content);
 
         frameLayout = (FrameLayout) findViewById(R.id.main_frame);
@@ -87,8 +105,6 @@ public class MainActivity extends AppCompatActivity{
         configuracaoFragment = new ConfiguracaoFragment();
         moedasFragment = new MoedasFragment();
         alertasFragment = new AlertasFragment();
-
-        setFragment(homeFragment);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -125,8 +141,38 @@ public class MainActivity extends AppCompatActivity{
         });
 
 
-        // CADASTRO DE ALERTAS
+         if (alerta != null){
 
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.main_frame, saldoFragment);
+            fragmentTransaction.commit();
+
+        }else{
+
+            setFragment(homeFragment);
+
+        }
+
+    }
+
+    public Usuario getUsuarioLogado(){
+
+        if(usuario == null){
+            usuario = db.usuarioDao().procurarPorUserName(userName,pass);
+
+            if(usuario == null){
+                return null;
+            }
+            return usuario;
+        }else{
+            Integer id = usuario.getID().intValue();
+            if(id > 0) {
+                return usuario;
+            }else {
+                return null;
+            }
+        }
     }
 
 
@@ -135,11 +181,11 @@ public class MainActivity extends AppCompatActivity{
         fragmentTransaction.replace(R.id.main_frame, fragment);
         fragmentTransaction.commit();
     }
-
+/**
     @Override
     protected void onStart() {
         super.onStart();
-    }
+    }*/
 
     @Override
     protected void onResume() {
@@ -161,20 +207,17 @@ public class MainActivity extends AppCompatActivity{
             case R.id.alertas:
                 setFragment(alertasFragment);
                 break;
-            case R.id.cadastro_usuario:
-                Snackbar.make(
-                        parentLayout,
-                        "Entrou no usuario",
-                        Snackbar.LENGTH_LONG
-                ).show();
-
-                break;
-
             case R.id.cadastro_categoria:
                 cadastroDeCategoriaDialog();
                 break;
             case R.id.sair:
-                finish();
+
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                //finish();
                 break;
 
             default:
@@ -238,12 +281,6 @@ public class MainActivity extends AppCompatActivity{
        }
     }
 
-    // chamado no botao salvar da janela de alertas
-    public void salvaAlerta(View view) {
-
-    }
-
-
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -252,35 +289,34 @@ public class MainActivity extends AppCompatActivity{
         switch(view.getId()) {
             case R.id.radio_saldo:
                 if (checked){
-                    txtDescricaoAlerta = ((RadioButton) view).getText().toString();
-                    isRadioTipoDeAlertChecked = checked;
+                   // txtDescricaoAlerta = ((RadioButton) view).getText().toString();
+                   // isRadioTipoDeAlertChecked = checked;
                 }
                     break;
             case R.id.radio_tipo_operacao_credito:
                 if (checked){
-                    txtDescricaoAlerta = ((RadioButton) view).getText().toString();
-                    isRadioTipoDeAlertChecked = checked;
+                 //   txtDescricaoAlerta = ((RadioButton) view).getText().toString();
+                  //  isRadioTipoDeAlertChecked = checked;
                 }
                     break;
             case R.id.radio_tipo_operacao_despesa:
                 if (checked){
-                    txtDescricaoAlerta = ((RadioButton) view).getText().toString();
-                    isRadioTipoDeAlertChecked = checked;
+                   // txtDescricaoAlerta = ((RadioButton) view).getText().toString();
+                    //isRadioTipoDeAlertChecked = checked;
                 }
                     break;
             case R.id.radio_condicao_maior:
                 if (checked){
-                    txtDescricaoAlerta = ((RadioButton) view).getText().toString();
-                    isRadioCondicaoAlertaChecked = checked;
+                   // txtDescricaoAlerta = ((RadioButton) view).getText().toString();
+                   // isRadioCondicaoAlertaChecked = checked;
                 }
                     break;
             case R.id.radio_condicao_menor:
                 if (checked){
-                    txtDescricaoAlerta = ((RadioButton) view).getText().toString();
-                    isRadioCondicaoAlertaChecked = checked;
+                   // txtDescricaoAlerta = ((RadioButton) view).getText().toString();
+                   // isRadioCondicaoAlertaChecked = checked;
                 }
                     break;
         }
     }
-
 }

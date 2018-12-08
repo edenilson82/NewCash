@@ -27,6 +27,12 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                         parentColumns = "id",
                         childColumns = "id_endereco",
                         onDelete = CASCADE
+                ),
+                @ForeignKey(
+                        entity = Usuario.class,
+                        parentColumns = "id",
+                        childColumns = "id_usuario",
+                        onDelete = CASCADE
                 )
         }
 )
@@ -47,6 +53,9 @@ public class Operacao implements Serializable {
     @ColumnInfo(name = "id_endereco")
     private Integer Endereco_Id;
 
+    @ColumnInfo(name = "id_usuario")
+    private Integer Usuario_id;
+
     public Operacao(){}
 
     public Operacao(String descricao, String tipo, String data, Double valor, long categoria_Id) {
@@ -64,6 +73,16 @@ public class Operacao implements Serializable {
         Valor = valor;
         Categoria_Id = categoria_Id;
         Endereco_Id = endereco_Id;
+    }
+
+    public Operacao(String descricao, String tipo, String data, Double valor, long categoria_Id, Integer endereco_Id, Integer usuario_id) {
+        Descricao = descricao;
+        Tipo = tipo;
+        Data = data;
+        Valor = valor;
+        Categoria_Id = categoria_Id;
+        Endereco_Id = endereco_Id;
+        Usuario_id = usuario_id;
     }
 
     public int getID() {
@@ -120,5 +139,13 @@ public class Operacao implements Serializable {
 
     public void setEndereco_Id(Integer endereco_Id) {
         Endereco_Id = endereco_Id;
+    }
+
+    public Integer getUsuario_id() {
+        return Usuario_id;
+    }
+
+    public void setUsuario_id(Integer usuario_id) {
+        Usuario_id = usuario_id;
     }
 }

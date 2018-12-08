@@ -9,8 +9,10 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.arch.lifecycle.LiveData;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -59,7 +61,10 @@ import com.example.edeni.grana.model.Alerta;
 import com.example.edeni.grana.model.Categoria;
 import com.example.edeni.grana.model.Endereco;
 import com.example.edeni.grana.model.Operacao;
+import com.example.edeni.grana.model.Usuario;
 import com.example.edeni.grana.room.AppDatabase;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -84,6 +89,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthSettings;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -93,6 +101,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.zip.Inflater;
+
+import me.drakeet.materialdialog.MaterialDialog;
 
 public class CadastroActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener,
@@ -116,6 +126,9 @@ public class CadastroActivity extends AppCompatActivity
     View parentLayout;
 
     // CAMPOS DA TELA
+    Usuario usuario;
+    private TextView txt_id_usuario_logado;
+
     private TextView lblCategoria;
     private TextView lblOperacao; // é o TIPO
     private EditText txtDescricao;
@@ -134,6 +147,10 @@ public class CadastroActivity extends AppCompatActivity
     private GoogleMap mMap;
     SupportMapFragment mapFragment;
     RelativeLayout relativeLayoutMapa;
+
+    // DIALOG de permissoes
+    private MaterialDialog mMaterialDialog;
+    public static final int REQUEST_PERMISSIONS_CODE = 128;
 
     private static final int PERMISSION_REQUEST_CODE = 7001;
     private static final int PLAY_SERVICE_REQUEST = 7002;
@@ -192,10 +209,10 @@ public class CadastroActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
 
-        if (checkPlayServices()) {
+       if (checkPlayServices()) {
             buildGoogleApiClient(); // Pega a posição do meu celular
             createLocationRequest();
-        }
+       }
 
         placeAutocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         txtEndereco = (EditText) placeAutocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input);
@@ -261,6 +278,8 @@ public class CadastroActivity extends AppCompatActivity
 
 
         // CAMPOS DA TELA
+        txt_id_usuario_logado = (TextView) findViewById(R.id.txt_usuario_logado);
+
         lblCategoria = (TextView) findViewById(R.id.lbl_categoria);
         lblOperacao = (TextView) findViewById(R.id.lbl_operacao);
 
@@ -281,20 +300,21 @@ public class CadastroActivity extends AppCompatActivity
 
         CriaComboCategoria();
 
-        //usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+        // aqui carrega o objeto OPERAÇÃO que vem da HOME ACTIVITY
+        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
-        // aqui carrega o objeto OPERAÇÃO
+        // aqui carrega o objeto OPERAÇÃO que vem da Tela MOVIMENTOS
         operacao = (Operacao) getIntent().getSerializableExtra("operacao");
         if (operacao != null) {
+
+            // Procura no banco se encontra um usuario com este ID
+            usuario = db.loginDao().procurarPorId(operacao.getUsuario_id());
 
             toolbarCadastro.setTitle(TITULO_ALTERAR);
 
             // Mostro a Label de Categoria e a Label Operação
             lblCategoria.setVisibility(View.VISIBLE);
             lblOperacao.setVisibility(View.VISIBLE);
-
-            // Procura no banco se encontra um usuario com este ID
-            // usuario = db.loginDao().procurarPorId(operacao.getUsuario_Id());
 
             txtDescricao.setText(operacao.getDescricao());
             txtValor.setText(Double.toString(operacao.getValor()));
@@ -574,7 +594,7 @@ public class CadastroActivity extends AppCompatActivity
                     //locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 2000, 0, this );
                     //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200,0,this);
                     Log.d("LOG", "GPS Enabled");
-                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (location != null) {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
@@ -606,6 +626,7 @@ public class CadastroActivity extends AppCompatActivity
     }
 
     private boolean checkPlayServices() {
+
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int resultCode = googleAPI.isGooglePlayServicesAvailable(this);
 
@@ -624,6 +645,7 @@ public class CadastroActivity extends AppCompatActivity
     }
 
     private void displayLocation() {
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -677,7 +699,13 @@ public class CadastroActivity extends AppCompatActivity
                 cadastroDeCategoriaDialog();
                 break;
             case R.id.btn_sair:
-                finish();
+
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+
+                Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                startActivity(intent);
+                //finish();
                 break;
 
             default:
@@ -685,7 +713,7 @@ public class CadastroActivity extends AppCompatActivity
         }
         return true;
     }
-
+//  cadastro de categoria
     public void cadastroDeCategoriaDialog() {
         final Dialog dialog = new Dialog(this);
 
@@ -700,8 +728,11 @@ public class CadastroActivity extends AppCompatActivity
                 final EditText nomeCategoria = (EditText) dialog.findViewById(R.id.txtNomeNovaCategoria);
                 boolean valido = salvaCategoria(nomeCategoria.getText().toString());
 
-                if(valido)
+                if(valido){
                     dialog.dismiss();
+                    CriaComboCategoria();
+                }
+
             }
         });
 
@@ -761,9 +792,14 @@ public class CadastroActivity extends AppCompatActivity
         mMap = googleMap;
 
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+        if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            if( ActivityCompat.shouldShowRequestPermissionRationale( this, Manifest.permission.ACCESS_FINE_LOCATION ) ){
+               // callDialog( null, new String[]{Manifest.permission.ACCESS_FINE_LOCATION} );
+                ActivityCompat.requestPermissions(CadastroActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
+            }
+            //return;
         }
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -830,11 +866,41 @@ public class CadastroActivity extends AppCompatActivity
         }
     }
 
+    /*
+    private void callDialog( String message, final String[] permissions ){
+
+        mMaterialDialog = new MaterialDialog(this)
+                .setTitle("Permissão")
+                .setMessage( message )
+                .setPositiveButton("Ok", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        ActivityCompat.requestPermissions(CadastroActivity.this, permissions, REQUEST_PERMISSIONS_CODE);
+                        mMaterialDialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Cancelar", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMaterialDialog.dismiss();
+                    }
+                });
+        mMaterialDialog.show();
+    }
+    */
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            return;
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            // entra aqui a primeira vez para permissao do mapa.
+            if( ActivityCompat.shouldShowRequestPermissionRationale( this, Manifest.permission.ACCESS_FINE_LOCATION ) ){
+                // callDialog( null, new String[]{Manifest.permission.ACCESS_FINE_LOCATION} );
+                ActivityCompat.requestPermissions(CadastroActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSIONS_CODE);
+            }
         }
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
@@ -934,7 +1000,7 @@ public class CadastroActivity extends AppCompatActivity
         String msg = lbl_excluir.getText().toString();
 
         lbl_excluir.setText(msg + " \n "  + tipo + " - " + descricao + " ?");
-        lbl_excluir.setTextColor(R.color.mensagem);
+        //lbl_excluir.setTextColor(R.color.mensagem);
 
         confirmar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -957,32 +1023,45 @@ public class CadastroActivity extends AppCompatActivity
         dialog.show();
     }
 
-    // chamado no INSERIR e no ALTERAR operação - Calcula o total dos valores para disparar as notificações.
-    private Double calculaTotalDeValores(List<Operacao> operacoes, Alerta alerta){
+    private Double getTotalCreditos(List<Operacao> operacoes){
+
+        Double totalCreditos = 0.0;
+        for (Operacao op: operacoes) {
+            if("Crédito".equals(op.getTipo())){
+                totalCreditos += op.getValor();
+            }
+        }
+        return totalCreditos;
+    }
+    private Double getTotalDespesas(List<Operacao> operacoes){
+        Double totalDespesas = 0.0;
+        for (Operacao op: operacoes) {
+            if("Despesa".equals(op.getTipo())){
+                totalDespesas += op.getValor();
+            }
+        }
+        return totalDespesas;
+    }
+    private Double getTotalSaldo(List<Operacao> operacoes){
 
         double totalCreditos = 0.0;
         double totalDespesas = 0.0;
-        double totalSaldo = 0.0;
+        double saldo = 0.0;
+
         for (Operacao op: operacoes) {
             if("Crédito".equals(op.getTipo())){
                 totalCreditos += op.getValor();
             }else if("Despesa".equals(op.getTipo())){
                 totalDespesas += op.getValor();
             }
-            totalSaldo += (totalCreditos - totalDespesas);
+            saldo += (totalCreditos - totalDespesas);
         }
-
-        if("saldo".equals(alerta.getTipo())){
-            return totalSaldo;
-        }else if("credito".equals(alerta.getTipo())){
-            return totalCreditos;
-        }else{
-            return totalDespesas;
-        }
+        return saldo;
     }
 
     // btnSalvar - SALVAR
     public void salvarOperacao(MenuItem item) {
+
         boolean valido = ValidaCampos();
         Integer idEndereco = 0;
 
@@ -993,8 +1072,17 @@ public class CadastroActivity extends AppCompatActivity
             String tipo = spinnerOperacao.getSelectedItem().toString();
             long idcategoria = (spinCategoria.getSelectedItemId() + 1);
 
+            Integer id_usuario = 0;
+            if(usuario != null)
+                id_usuario = usuario.getID().intValue();
+
             List<Operacao> operacoes;
-            List<Alerta> alertas = db.alertaDao().listar();
+            List<Alerta> alertas;
+            if(id_usuario > 0){
+                alertas = db.alertaDao().listar(id_usuario);
+            }else{
+                alertas = null;
+            }
             double total = 0.0;
 
             if(latLong == null){
@@ -1005,7 +1093,7 @@ public class CadastroActivity extends AppCompatActivity
 
             if(operacao == null){
                 //  INSERIR REGISTRO
-                operacao = new Operacao(descricao, tipo, data, valor, idcategoria, idEndereco);
+                operacao = new Operacao(descricao, tipo, data, valor, idcategoria, idEndereco, id_usuario);
 
                 AsyncTask.execute(new Runnable() {
                     @Override
@@ -1019,11 +1107,14 @@ public class CadastroActivity extends AppCompatActivity
                 });
                 Toast.makeText(this, "Registro salvo com sucesso!", Toast.LENGTH_SHORT).show();
 
-                operacoes = db.operacaoDao().listar();
+                operacoes = db.operacaoDao().listar(id_usuario);
+
+                Double totalCreditos = getTotalCreditos(operacoes);
+                Double totalDespesas = getTotalDespesas(operacoes);
+                Double saldo = getTotalSaldo(operacoes);
 
                 for (Alerta alert:alertas) {
-                    total = calculaTotalDeValores(operacoes, alert);
-                    executaAlerta(alert);
+                    verificaAlerta(totalCreditos,totalDespesas ,saldo ,alert);
                 }
 
             }else{ // EDITAR REGISTRO
@@ -1040,7 +1131,11 @@ public class CadastroActivity extends AppCompatActivity
                             meuEndereco = getEnderecoCompleto(endereco_id, Double.parseDouble(enderecoSelecionado.getLatitude()), Double.parseDouble(enderecoSelecionado.getLongitude()));
 
                     }else {
-                        meuEndereco = db.enderecoDao().procurarPorId(endereco_id);
+                        if(endereco_id == null){
+                            meuEndereco = null;
+                        }else{
+                            meuEndereco = db.enderecoDao().procurarPorId(endereco_id);
+                        }
                     }
 
                     if(meuEndereco != null){
@@ -1052,11 +1147,14 @@ public class CadastroActivity extends AppCompatActivity
                     AlterarCash(operacao);
                     Toast.makeText(this, "Registro alterado com sucesso!", Toast.LENGTH_SHORT).show();
 
-                    operacoes = db.operacaoDao().listar();
+                    operacoes = db.operacaoDao().listar(id_usuario);
+
+                    Double totalCreditos = getTotalCreditos(operacoes);
+                    Double totalDespesas = getTotalDespesas(operacoes);
+                    Double saldo = getTotalSaldo(operacoes);
 
                     for (Alerta alert:alertas) {
-                        total = calculaTotalDeValores(operacoes, alert);
-                        executaAlerta(alert);
+                        verificaAlerta(totalCreditos,totalDespesas ,saldo ,alert);
                     }
 
                 }catch (Exception ex){
@@ -1070,7 +1168,79 @@ public class CadastroActivity extends AppCompatActivity
         }
     }
 
+    public void verificaAlerta(Double credito, Double despesa, Double saldo, Alerta alerta)
+    {
+        double valorCondicao = alerta.getValor(); // 200
+        int condicao = alerta.getCondicao();  // maior ou menor
+        String tipoDeAlerta = alerta.getTipo();
+
+        if (tipoDeAlerta.equals("despesa"))
+        {
+            if(condicao == 2) // MAIOR
+            {
+                if (despesa > valorCondicao) // se o saldo for maior que valorCondicao  510 > 200
+                {
+                    executaAlerta(alerta);
+                }
+            }
+            else if(condicao == 1)// MENOR
+            {
+                String valor = despesa.toString().replace("-", "");
+                despesa = Double.parseDouble(valor);
+
+                if (despesa < valorCondicao) // se o saldo for menor que valorCondicao  510 < 200
+                {
+                    executaAlerta(alerta);;
+                }
+            }
+        }
+
+        if (tipoDeAlerta.equals("credito"))
+        {
+            if (condicao == 2)
+            {
+                if (credito > valorCondicao) // se o saldo for maior que valorCondicao  510 > 200
+                {
+                    executaAlerta(alerta);
+                }
+            }
+            else if(condicao == 1)// menor
+            {
+                String valor = saldo.toString().replace("-", "");
+                saldo = Double.parseDouble(valor);
+
+                if (credito < valorCondicao) // se o saldo for menor que valorCondicao  510 < 200
+                {
+                    executaAlerta(alerta);
+                }
+            }
+        }
+
+        if (tipoDeAlerta.equals("saldo"))
+        {
+            if (condicao == 2)
+            {
+                if (saldo > valorCondicao) // se o saldo for maior que valorCondicao  510 > 200
+                {
+                    executaAlerta(alerta);
+                }
+            }
+            else if(condicao == 1)// menor
+            {
+                String valor = saldo.toString().replace("-", "");
+                saldo = Double.parseDouble(valor);
+
+                if (saldo < valorCondicao) // se o saldo for menor que valorCondicao  510 < 200
+                {
+                    executaAlerta(alerta);
+                }
+            }
+        }
+    }
+
     private void executaAlerta(Alerta alerta){
+
+        final String NOTIFICATION_CHANNEL_ID = "10001";
         String condicao;
         String tipo = (alerta.getTipo().substring(0, 1).toUpperCase() + (alerta.getTipo().substring(1)));
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
@@ -1083,24 +1253,27 @@ public class CadastroActivity extends AppCompatActivity
         }
 
         int id = 1;
-        String TITULO = "See Cash";
-        String MENSAGEN = tipo + " é " + condicao + " que " + valor;
-        String DESCRICAO = MENSAGEN;
+        String TITULO = "Alerta de Movimentação";
+        String DESCRICAO = tipo + " é " + condicao + " que " + valor;
         int SMALL_ICONE = R.drawable.small_icon_notification;
         int LARGE_ICONE = R.drawable.large_icon_notification;
 
-        String channelId = "some_channel_id";
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("alerta",alerta);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        Intent intent = new Intent(this,SaldoFragment.class);
+       // PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-        NotificationCompat.Builder notificacao = new NotificationCompat.Builder(this,getString(R.string.texto_notificacao));
-        notificacao.setTicker(DESCRICAO);
+        NotificationCompat.Builder notificacao = new NotificationCompat.Builder(this,getString(R.string.msg_notificacao));
+        notificacao.setContentText(DESCRICAO);
+        notificacao.setStyle(new NotificationCompat.BigTextStyle()
+                .bigText(DESCRICAO));
         notificacao.setContentTitle(TITULO);
         notificacao.setSmallIcon(SMALL_ICONE);
         notificacao.setLargeIcon(BitmapFactory.decodeResource(getResources(), LARGE_ICONE) );
         notificacao.setContentIntent(pendingIntent);
+        notificacao.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         notificacao.setAutoCancel(true);
 
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -1108,12 +1281,13 @@ public class CadastroActivity extends AppCompatActivity
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
         {
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel notificationChannel = new NotificationChannel(channelId, "NOTIFICATION_CHANNEL_NAME", importance);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME", importance);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.enableVibration(true);
             notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-            notificacao.setChannelId(channelId);
+            notificacao.setChannelId(NOTIFICATION_CHANNEL_ID);
+
             nm.createNotificationChannel(notificationChannel);
         }
 
@@ -1201,5 +1375,4 @@ public class CadastroActivity extends AppCompatActivity
         }
         return sigla;
     }
-
 }

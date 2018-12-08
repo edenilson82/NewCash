@@ -31,4 +31,13 @@ public interface UsuarioDao {
     @Query("SELECT * FROM Usuario WHERE username =:userName AND senha =:senha")
     public Usuario procurarPorUserName(String userName, String senha);
 
+    @Query("SELECT * FROM Usuario WHERE email =:email AND senha =:senha")
+    public Usuario procurarPorEmailSenha(String email, String senha);
+
+    @Query("SELECT * FROM Usuario WHERE email =:email")
+    public Usuario procurarPorEmail(String email);
+
+    @Query("SELECT * FROM Usuario WHERE id_facebook =:id_facebook")
+    public Usuario procurarPorIdFacebook(String id_facebook);
+
 }

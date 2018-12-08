@@ -7,5 +7,4 @@ public interface OnAlertasListener {
     void onFondoClicked(int position);
 
     void onActionClicked(int position);
-
 }

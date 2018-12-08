@@ -19,7 +19,6 @@
         android:id="@+id/txt_input_layout_cad_categoria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radio_condicao_alerta"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="30dp"
         android:paddingLeft="10dp">

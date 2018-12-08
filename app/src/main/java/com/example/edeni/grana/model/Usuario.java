@@ -12,7 +12,16 @@ public class Usuario implements Serializable {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    private long ID;
+    private Integer ID;
+
+    @ColumnInfo(name = "id_facebook")
+    private String IdFacebook;
+
+    @ColumnInfo(name = "token_facebook")
+    private String TokenFacebook;
+
+    @ColumnInfo(name = "token_google")
+    private String TokenGoogle;
 
     @ColumnInfo(name = "nome")
     private String Nome;
@@ -46,9 +55,28 @@ public class Usuario implements Serializable {
         Conectado = conectado;
     }
 
-    public Usuario(String username, String senha) {
+    public Usuario(String nome, String username, String email,String senha) {
+        Nome = nome;
         UserName = username;
+        Email = email;
         Senha = senha;
+    }
+
+    public Usuario(String nome, String email, String senha, String tokenFacebook, String tokenGoogle, boolean conectado) {
+        Nome = nome;
+        Email = email;
+        Senha = senha;
+        TokenFacebook = tokenFacebook;
+        TokenGoogle = tokenGoogle;
+        Conectado = conectado;
+    }
+
+    public Usuario(String idFacebook, String nome, String email, String senha, String token_facebook) {
+        IdFacebook = idFacebook;
+        Nome = nome;
+        Email = email;
+        Senha = senha;
+        TokenFacebook = token_facebook;
     }
 
     public Usuario(String nome, String sobreNome, String userName, String nascimento, Integer idade, String senha,boolean conectado) {
@@ -62,11 +90,11 @@ public class Usuario implements Serializable {
         Conectado = conectado;
     }
 
-    public long getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(long ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
@@ -132,5 +160,29 @@ public class Usuario implements Serializable {
 
     public void setConectado(boolean conectado) {
         Conectado = conectado;
+    }
+
+    public String getIdFacebook() {
+        return IdFacebook;
+    }
+
+    public void setIdFacebook(String idFacebook) {
+        IdFacebook = idFacebook;
+    }
+
+    public String getTokenFacebook() {
+        return TokenFacebook;
+    }
+
+    public void setTokenFacebook(String tokenFacebook) {
+        TokenFacebook = tokenFacebook;
+    }
+
+    public String getTokenGoogle() {
+        return TokenGoogle;
+    }
+
+    public void setTokenGoogle(String tokenGoogle) {
+        TokenGoogle = tokenGoogle;
     }
 }
